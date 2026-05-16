@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional YouTube Tag Generator | Free SEO Tool</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans flex flex-col justify-between">
+
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2 font-bold text-xl tracking-tight text-red-500">
+                <i class="fab fa-youtube text-2xl"></i>
+                <span>YT<span class="text-white font-medium">TagGen</span></span>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm font-medium text-slate-400">
+                <a href="#" class="hover:text-white transition">Home</a>
+                <a href="#about" class="hover:text-white transition">About SEO</a>
+                <a href="#privacy" class="hover:text-white transition">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-4 py-12 w-full flex-grow">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-red-500 to-amber-500 bg-clip-text text-transparent mb-4">
+                Free YouTube Tag Generator
+            </h1>
+            <p class="text-slate-400 md:text-lg max-w-xl mx-auto">
+                Generate high-ranking, SEO-optimized tags for your YouTube videos instantly to boost your views.
+            </p>
+        </div>
+
+        <div class="bg-slate-800 border border-slate-700/50 rounded-2xl p-6 shadow-xl mb-8">
+            <div class="flex flex-col sm:flex-row gap-3">
+                <div class="relative flex-grow">
+                    <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                    <input type="text" id="keywordInput" placeholder="Enter your video topic (e.g., BMW M4 CSL Edit, iPhone Review)..." 
+                        class="w-full bg-slate-950 border border-slate-700 rounded-xl py-3.5 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:border-red-500 transition-colors text-sm md:text-base">
+                </div>
+                <button onclick="generateTags()" class="bg-red-600 hover:bg-red-500 text-white font-semibold px-6 py-3.5 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-red-600/20 active:scale-95">
+                    <span>Generate</span>
+                    <i class="fas fa-magic"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="resultBox" class="hidden bg-slate-800 border border-slate-700/50 rounded-2xl p-6 shadow-xl transition-all duration-300">
+            <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-700">
+                <span class="text-sm font-semibold tracking-wider text-slate-400 uppercase">Generated Tags</span>
+                <button onclick="copyAllTags()" id="copyBtn" class="text-xs bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 px-3 rounded-lg flex items-center gap-2 transition cursor-pointer">
+                    <i class="far fa-copy"></i>
+                    <span id="copyBtnText">Copy All Tags</span>
+                </button>
+            </div>
+            
+            <div id="tagsContainer" class="flex flex-wrap gap-2 mb-4">
+                </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-800 bg-slate-950/50 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-5xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p>&copy; 2026 YTTagGen. Optimized for YouTube Creators.</p>
+            <div class="flex gap-4">
+                <a href="#" class="hover:underline">Privacy Policy</a>
+                <a href="#" class="hover:underline">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function generateTags() {
+            const input = document.getElementById('keywordInput').value.trim();
+            const resultBox = document.getElementById('resultBox');
+            const tagsContainer = document.getElementById('tagsContainer');
+            
+            if (!input) {
+                alert('Please enter a topic or keyword first!');
+                return;
+            }
+
+            const baseKeyword = input;
+            const variations = [
+                `${baseKeyword}`,
+                `${baseKeyword} shorts`,
+                `${baseKeyword} edit`,
+                `${baseKeyword} 4k`,
+                `${baseKeyword} trending`,
+                `${baseKeyword} viral`,
+                `how to ${baseKeyword}`,
+                `${baseKeyword} tutorial`,
+                `best ${baseKeyword}`,
+                `${baseKeyword} 2026`,
+                `new ${baseKeyword}`,
+                `${baseKeyword} review`
+            ];
+
+            tagsContainer.innerHTML = '';
+
+            variations.forEach(tag => {
+                const tagElement = document.createElement('span');
+                tagElement.className = "bg-slate-900 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-sm flex items-center gap-2 hover:border-red-500/50 transition cursor-default group";
+                tagElement.innerHTML = `${tag} <i class="fas fa-times text-slate-600 group-hover:text-red-400 text-xs ml-1 cursor-pointer" onclick="this.parentElement.remove()"></i>`;
+                tagsContainer.appendChild(tagElement);
+            });
+
+            resultBox.classList.remove('hidden');
+            
+            const copyBtnText = document.getElementById('copyBtnText');
+            const copyBtn = document.getElementById('copyBtn');
+            copyBtnText.innerText = "Copy All Tags";
+            copyBtn.className = "text-xs bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 px-3 rounded-lg flex items-center gap-2 transition cursor-pointer";
+        }
+
+        function copyAllTags() {
+            const tagsContainer = document.getElementById('tagsContainer');
+            const spans = tagsContainer.getElementsByTagName('span');
+            
+            if(spans.length === 0) return;
+
+            let tagsList = [];
+            for (let span of spans) {
+                let text = span.textContent.trim();
+                tagsList.push(text);
+            }
+
+            const commaSeparatedTags = tagsList.join(', ');
+
+            navigator.clipboard.writeText(commaSeparatedTags).then(() => {
+                const copyBtnText = document.getElementById('copyBtnText');
+                const copyBtn = document.getElementById('copyBtn');
+                
+                copyBtnText.innerText = "Copied!";
+                copyBtn.className = "text-xs bg-green-600 text-white font-medium py-1.5 px-3 rounded-lg flex items-center gap-2 transition cursor-default";
+                
+                setTimeout(() => {
+                    copyBtnText.innerText = "Copy All Tags";
+                    copyBtn.className = "text-xs bg-slate-700 hover:bg-slate-600 text-white font-medium py-1.5 px-3 rounded-lg flex items-center gap-2 transition cursor-pointer";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy tags: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
